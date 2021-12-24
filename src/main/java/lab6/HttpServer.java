@@ -7,6 +7,9 @@ import org.apache.zookeeper.*;
 
 import java.nio.charset.StandardCharsets;
 
+import static akka.http.javadsl.server.Directives.path;
+import static akka.http.javadsl.server.Directives.route;
+
 public class HttpServer implements Watcher {
     private final Http http;
     private final ActorRef configurator;
@@ -37,6 +40,6 @@ public class HttpServer implements Watcher {
     }
 
     public Route createRoute() {
-        return route()
+        return route(path())
     }
 }
