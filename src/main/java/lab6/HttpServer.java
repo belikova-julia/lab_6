@@ -24,9 +24,10 @@ public class HttpServer implements Watcher {
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL);
     }
-    
+
     @Override
     public void process(WatchedEvent watchedEvent) {
+        zoo.getData()
 
     }
 }
