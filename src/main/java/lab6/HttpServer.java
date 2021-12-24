@@ -10,6 +10,7 @@ public class HttpServer implements Watcher {
     private final Http http;
     private final ActorRef configurator;
     private final ZooKeeper zoo;
+    private final String serverPath;
 
     private static String SERVERS_PATH = "localhost:";
 
@@ -18,7 +19,7 @@ public class HttpServer implements Watcher {
         this.http = http;
         this.configurator = configurator;
         this.zoo = zoo;
-        String serverPath = SERVERS_PATH + port;
+        this.serverPath = SERVERS_PATH + port;
         zoo.create("/servers/" + serverPath,
                 serverPath.getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
@@ -27,7 +28,13 @@ public class HttpServer implements Watcher {
 
     @Override
     public void process(WatchedEvent watchedEvent) {
-        zoo.getData()
+        try {
+            zoo.getData(serverPath, this, null);
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 }
