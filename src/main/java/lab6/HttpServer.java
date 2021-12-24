@@ -44,6 +44,10 @@ public class HttpServer implements Watcher {
     public Route createRoute() {
         return route(path(
                 URL_ROUTE,
-                () -> route(get(() -> parameter()))))
+                () -> route(get(() -> parameter(REQUEST_URL, url ->
+                        parameter(REQUEST_COUNT, count -> {
+                            System.out.println();
+                            return
+                        }))))))
     }
 }
