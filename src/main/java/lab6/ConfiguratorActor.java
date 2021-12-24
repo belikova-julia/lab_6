@@ -14,8 +14,8 @@ public class ConfiguratorActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(/*getRandomServer.class*/, msg -> sender().tell(getRandomServer(), ActorRef.noSender()))
-                .match()
+                .match(/*msgGetRandomServer.class*/, msg -> sender().tell(getRandomServer(), ActorRef.noSender()))
+                .match(/*msg*/)
                 .build();
     }
 
