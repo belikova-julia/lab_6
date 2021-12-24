@@ -7,7 +7,6 @@ import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 import org.apache.zookeeper.*;
 
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 import static akka.http.javadsl.server.Directives.*;
@@ -18,7 +17,6 @@ public class HttpServer implements Watcher {
     private final ZooKeeper zoo;
     private final String serverPath;
 
-    private static String SERVERS_PATH = "localhost:";
     private static final String URL_ROUTE = "";
     private static final String REQUEST_URL = "url";
     private static final String REQUEST_COUNT = "count";
@@ -32,6 +30,7 @@ public class HttpServer implements Watcher {
         this.http = http;
         this.configurator = configurator;
         this.zoo = zoo;
+        String SERVERS_PATH = "localhost:";
         this.serverPath = SERVERS_PATH + port;
         zoo.create("/servers/" + serverPath,
                 serverPath.getBytes(),
