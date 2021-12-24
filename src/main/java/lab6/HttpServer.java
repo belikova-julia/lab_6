@@ -19,6 +19,7 @@ public class HttpServer implements Watcher {
     private static final String URL_ROUTE = "";
     private static final String REQUEST_URL = "url";
     private static final String REQUEST_COUNT = "count";
+    private static final String ZERO_STRING = "0";
 
 
     public HttpServer(Http http, ActorRef configurator, ZooKeeper zoo, String port) throws InterruptedException, KeeperException {
@@ -46,8 +47,8 @@ public class HttpServer implements Watcher {
                 URL_ROUTE,
                 () -> route(get(() -> parameter(REQUEST_URL, url ->
                         parameter(REQUEST_COUNT, count -> {
-                            System.out.println();
-                            return
+                            System.out.printf("URL: %s, count: %s", serverPath, count);
+                            return completeWithFuture(count.equals(ZERO_STRING))
                         }))))))
     }
 }
