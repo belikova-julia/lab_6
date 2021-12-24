@@ -18,7 +18,7 @@ public class HttpServer implements Watcher {
     private static String SERVERS_PATH = "localhost:";
     private static final String URL_ROUTE = "";
     private static final String REQUEST_URL = "url";
-    private static final String REQUEST_
+    private static final String REQUEST_COUNT = "count";
 
 
     public HttpServer(Http http, ActorRef configurator, ZooKeeper zoo, String port) throws InterruptedException, KeeperException {
