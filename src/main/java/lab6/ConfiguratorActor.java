@@ -1,4 +1,10 @@
 package lab6;
 
-public class ConfiguratorActor {
+import akka.actor.AbstractActor;
+
+public class ConfiguratorActor extends AbstractActor {
+    @Override
+    public Receive createReceive() {
+        return null;
+    }
 }
