@@ -2,10 +2,13 @@ package lab6;
 
 import akka.actor.ActorRef;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import org.apache.zookeeper.*;
 
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 
 import static akka.http.javadsl.server.Directives.*;
 
@@ -20,6 +23,8 @@ public class HttpServer implements Watcher {
     private static final String REQUEST_URL = "url";
     private static final String REQUEST_COUNT = "count";
     private static final String ZERO_STRING = "0";
+
+    private static final Duration TIMEOUT = Duration.ofMillis(1000);
 
 
     public HttpServer(Http http, ActorRef configurator, ZooKeeper zoo, String port) throws InterruptedException, KeeperException {
@@ -48,7 +53,11 @@ public class HttpServer implements Watcher {
                 () -> route(get(() -> parameter(REQUEST_URL, url ->
                         parameter(REQUEST_COUNT, count -> {
                             System.out.printf("URL: %s, count: %s", serverPath, count);
-                            return completeWithFuture(count.equals(ZERO_STRING))
+                            return completeWithFuture(
+                                    count.equals(ZERO_STRING)
+                                            ? http.singleRequest(HttpRequest.create(url))
+                                            : Patterns.ask(configurator, new GetRandomServerMessage(), TIMEOUT)
+                            )
                         }))))))
     }
 }
