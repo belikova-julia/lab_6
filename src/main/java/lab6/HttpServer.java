@@ -30,11 +30,8 @@ public class HttpServer implements Watcher {
     public void process(WatchedEvent watchedEvent) {
         try {
             zoo.getData(serverPath, this, null);
-        } catch (KeeperException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
