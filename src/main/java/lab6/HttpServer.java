@@ -40,8 +40,8 @@ public class HttpServer implements Watcher {
     }
 
     public Route createRoute() {
-        return route(
-                path(URL_ROUTE,
-                        () -> route(get(() -> parameter()))))
+        return route(path(
+                URL_ROUTE,
+                () -> route(get(() -> parameter()))))
     }
 }
