@@ -7,8 +7,7 @@ import org.apache.zookeeper.*;
 
 import java.nio.charset.StandardCharsets;
 
-import static akka.http.javadsl.server.Directives.path;
-import static akka.http.javadsl.server.Directives.route;
+import static akka.http.javadsl.server.Directives.*;
 
 public class HttpServer implements Watcher {
     private final Http http;
@@ -41,6 +40,8 @@ public class HttpServer implements Watcher {
     }
 
     public Route createRoute() {
-        return route(path(URL_ROUTE, ))
+        return route(
+                path(URL_ROUTE,
+                        () -> route(get(() -> parameter()))))
     }
 }
