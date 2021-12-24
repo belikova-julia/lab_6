@@ -1,6 +1,7 @@
 package lab6;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class ConfiguratorActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(/*getRandomServer.class*/, msg -> sender().tell(getRandomServer()))
+                .match(/*getRandomServer.class*/, msg -> sender().tell(getRandomServer(), ActorRef.noSender()))
                 .match()
                 .build();
     }
