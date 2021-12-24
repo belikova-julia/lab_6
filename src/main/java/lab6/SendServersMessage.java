@@ -1,2 +1,4 @@
-package lab6;public class SendServersMessage {
+package lab6;
+
+public class SendServersMessage {
 }
