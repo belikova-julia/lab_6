@@ -2,6 +2,7 @@ package lab6;
 
 import akka.actor.ActorRef;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.server.Route;
 import org.apache.zookeeper.*;
 
 import java.nio.charset.StandardCharsets;
@@ -33,5 +34,9 @@ public class HttpServer implements Watcher {
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public Route createRoute() {
+        return route()
     }
 }
