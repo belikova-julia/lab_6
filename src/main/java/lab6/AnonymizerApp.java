@@ -11,7 +11,6 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
-import javafx.beans.binding.StringBinding;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
@@ -28,7 +27,7 @@ public class AnonymizerApp {
 
     private static final String HOST = "localhost";
     private static final String SERVERS_PATH = "http://localhost:";
-    
+
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length < ARGS_AMOUNT) {
             System.err.println("Incorrect arguments amount");
