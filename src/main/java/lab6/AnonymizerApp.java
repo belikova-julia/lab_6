@@ -74,6 +74,5 @@ public class AnonymizerApp {
             binding.thenCompose(ServerBinding::unbind)
                     .thenAccept(unbound -> system.terminate());
         }
-
     }
 }
