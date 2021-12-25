@@ -1,2 +1,4 @@
-package lab6;public class ZooKeeperWatcher {
+package lab6;
+
+public class ZooKeeperWatcher {
 }
