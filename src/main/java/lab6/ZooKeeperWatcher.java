@@ -23,7 +23,7 @@ public class ZooKeeperWatcher implements Watcher {
         System.out.println("Servers data: " + serversData);
     }
 
-    public sendServers() {
+    public void sendServers() throws InterruptedException, KeeperException {
         ArrayList<String> servers = new ArrayList<>();
         for (String server : zooKeeper.getChildren(SERVERS_ROOT, this)) {
             servers.add(new String(zooKeeper.getData(SERVERS_ROOT + server, false, null)));
