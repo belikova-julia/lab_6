@@ -31,9 +31,9 @@ public class ZooKeeperWatcher implements Watcher {
     public void process(WatchedEvent watchedEvent) {
         try {
             zooKeeper.getChildren(SERVERS_ROOT, this);
+            sendServers();
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
-        sendServers();
     }
 }
