@@ -44,7 +44,7 @@ public class AnonymizerApp {
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
             HttpServer server = new HttpServer(http, configurator, zooKeeper, args[i]);
-            Flow<HttpRequest, HttpResponse, NotUsed> routFlow = server.createRoute().flow(system)
+            Flow<HttpRequest, HttpResponse, NotUsed> routFlow = server.createRoute().flow(system, materializer);
         }
 
     }
