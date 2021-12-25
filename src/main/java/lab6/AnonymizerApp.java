@@ -11,6 +11,7 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import javafx.beans.binding.StringBinding;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
@@ -48,6 +49,7 @@ public class AnonymizerApp {
         new ZooKeeperWatcher(zooKeeper, configurator);
 
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
+        StringBuilder serversLocationInfo = new StringBuilder("Server URLS:\n");
         for (int i = 1; i < args.length; i++) {
             try {
                 HttpServer server = new HttpServer(http, configurator, zooKeeper, args[i]);
@@ -55,6 +57,10 @@ public class AnonymizerApp {
                 bindings.add(http.bindAndHandle(routeFlow,
                         ConnectHttp.toHost(HOST, Integer.parseInt(args[i])),
                         materializer));
+                serversLocationInfo.append()
+            } catch (InterruptedException | KeeperException e) {
+                e.printStackTrace();
+            }
         }
 
     }
