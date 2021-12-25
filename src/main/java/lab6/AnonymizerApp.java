@@ -28,9 +28,11 @@ public class AnonymizerApp {
     private static final String HOST = "localhost";
     private static final String SERVERS_PATH = "http://localhost:";
 
+    private static final String INCORRECT_ARGUMENTS_AMOUNT = "Incorrect arguments amount";
+
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length < ARGS_AMOUNT) {
-            System.err.println("Incorrect arguments amount");
+            System.err.println(INCORRECT_ARGUMENTS_AMOUNT);
             System.exit(-1);
         }
 
