@@ -27,6 +27,7 @@ public class AnonymizerApp {
     private static final int ARGS_AMOUNT = 2;
 
     private static final String HOST = "localhost";
+    private static final String SERVERS_PATH = "http://localhost:";
 
 
 
@@ -57,7 +58,7 @@ public class AnonymizerApp {
                 bindings.add(http.bindAndHandle(routeFlow,
                         ConnectHttp.toHost(HOST, Integer.parseInt(args[i])),
                         materializer));
-                serversLocationInfo.append()
+                serversLocationInfo.append(SERVERS_PATH).append(args[i]).append("/\n");
             } catch (InterruptedException | KeeperException e) {
                 e.printStackTrace();
             }
