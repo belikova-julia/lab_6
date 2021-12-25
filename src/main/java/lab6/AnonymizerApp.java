@@ -51,6 +51,7 @@ public class AnonymizerApp {
 
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
         StringBuilder serversLocationInfo = new StringBuilder("Server URLS:\n");
+        
         for (int i = 1; i < args.length; i++) {
             try {
                 HttpServer server = new HttpServer(http, configurator, zooKeeper, args[i]);
