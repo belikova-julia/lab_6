@@ -67,6 +67,13 @@ public class AnonymizerApp {
         if (bindings.size() == 0) {
             System.err.println("No servers are running");
         }
+        System.out.println(serversLocationInfo);
+        System.in.read();
+
+        for (CompletionStage<ServerBinding> binding : bindings) {
+            binding.thenCompose(ServerBinding::unbind)
+                    .thenAccept(un)
+        }
 
     }
 }
