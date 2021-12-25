@@ -58,7 +58,7 @@ public class AnonymizerApp {
                 bindings.add(http.bindAndHandle(routeFlow,
                         ConnectHttp.toHost(HOST, Integer.parseInt(args[i])),
                         materializer));
-                serversLocationInfo.append(SERVERS_PATH).append(args[i]).append("/\n");
+                serversLocationInfo.append(SERVERS_PATH).append(args[i]).append("\n");
             } catch (InterruptedException | KeeperException e) {
                 e.printStackTrace();
             }
