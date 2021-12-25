@@ -37,7 +37,12 @@ public class AnonymizerApp {
         zooKeeper = new ZooKeeper(args[0], TIMEOUT,null);
         new ZooKeeperWatcher(zooKeeper, configurator);
 
-        ArrayList
+        ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
+        String port = args[1];
+        try {
+            HttpServer server = new HttpServer(http, configurator, zooKeeper, port);
+            
+        }
 
     }
 }
