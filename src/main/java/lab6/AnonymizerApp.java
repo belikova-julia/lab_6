@@ -1,9 +1,12 @@
 package lab6;
 
+import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.model.HttpRequest;
+import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.zookeeper.KeeperException;
@@ -16,11 +19,12 @@ import java.util.Arrays;
 public class AnonymizerApp {
     private static final String SYSTEM_NAME = "anonymizer";
     private static final int TIMEOUT = 5000;
+    private static final int ARGS_AMOUNT = 2;
 
 
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
-        if (args.length < 2) {
+        if (args.length < ARGS_AMOUNT) {
             System.err.println("Incorrect arguments amount");
             System.exit(-1);
         }
@@ -38,10 +42,9 @@ public class AnonymizerApp {
         new ZooKeeperWatcher(zooKeeper, configurator);
 
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
-        String port = args[1];
-        try {
-            HttpServer server = new HttpServer(http, configurator, zooKeeper, port);
-            
+        for (int i = 1; i < args.length; i++) {
+            HttpServer server = new HttpServer(http, configurator, zooKeeper, args[i]);
+            Flow<HttpRequest, HttpResponse, NotUsed> routFlow = server.createRoute().flow(system)
         }
 
     }
