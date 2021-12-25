@@ -6,9 +6,11 @@ import akka.actor.Props;
 import akka.http.javadsl.Http;
 import akka.stream.ActorMaterializer;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AnonymizerApp {
@@ -17,7 +19,7 @@ public class AnonymizerApp {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length < 2) {
             System.err.println("Incorrect arguments amount");
             System.exit(-1);
@@ -34,6 +36,8 @@ public class AnonymizerApp {
 
         zooKeeper = new ZooKeeper(args[0], TIMEOUT,null);
         new ZooKeeperWatcher(zooKeeper, configurator);
+
+        ArrayList
 
     }
 }
