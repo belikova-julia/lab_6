@@ -4,10 +4,13 @@ import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
+import akka.stream.javadsl.Flow;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
@@ -15,11 +18,14 @@ import org.apache.zookeeper.ZooKeeper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.CompletionStage;
 
 public class AnonymizerApp {
     private static final String SYSTEM_NAME = "anonymizer";
     private static final int TIMEOUT = 5000;
     private static final int ARGS_AMOUNT = 2;
+
+    private static final String HOST = "localhost";
 
 
 
@@ -44,7 +50,10 @@ public class AnonymizerApp {
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
             HttpServer server = new HttpServer(http, configurator, zooKeeper, args[i]);
-            Flow<HttpRequest, HttpResponse, NotUsed> routFlow = server.createRoute().flow(system, materializer);
+            final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = server.createRoute().flow(system, materializer);
+            bindings.add(http.bindAndHandle(routeFlow,
+                    ConnectHttp.toHost(HOST, Integer.parseInt(args[i])),
+                    materializer));
         }
 
     }
