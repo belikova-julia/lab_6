@@ -67,7 +67,7 @@ public class AnonymizerApp {
         }
 
         if (bindings.size() == 0) {
-            System.err.println(NO_SERVERS);
+            System.err.print(NO_SERVERS);
         }
 
         System.out.println(serversLocationInfo);
