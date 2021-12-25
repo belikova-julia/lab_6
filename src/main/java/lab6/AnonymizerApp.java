@@ -28,9 +28,7 @@ public class AnonymizerApp {
 
     private static final String HOST = "localhost";
     private static final String SERVERS_PATH = "http://localhost:";
-
-
-
+    
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length < ARGS_AMOUNT) {
             System.err.println("Incorrect arguments amount");
@@ -68,7 +66,7 @@ public class AnonymizerApp {
         if (bindings.size() == 0) {
             System.err.println("No servers are running");
         }
-        
+
         System.out.println(serversLocationInfo);
         System.in.read();
 
