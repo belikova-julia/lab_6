@@ -64,5 +64,9 @@ public class AnonymizerApp {
             }
         }
 
+        if (bindings.size() == 0) {
+            System.err.println("No servers are running");
+        }
+
     }
 }
