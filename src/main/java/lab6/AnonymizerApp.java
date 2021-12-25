@@ -28,11 +28,13 @@ public class AnonymizerApp {
     private static final String HOST = "localhost";
     private static final String SERVERS_PATH = "http://localhost:";
 
-    private static final String INCORRECT_ARGUMENTS_AMOUNT = "Incorrect arguments amount";
+    private static final String INCORRECT_ARGUMENTS_AMOUNT = "Incorrect arguments amount\n";
+    private static final String SERVERS_URL_INFO = "Server URLS:\n";
+    private static final String NO_SERVERS = "No servers are running\n";
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length < ARGS_AMOUNT) {
-            System.err.println(INCORRECT_ARGUMENTS_AMOUNT);
+            System.err.print(INCORRECT_ARGUMENTS_AMOUNT);
             System.exit(-1);
         }
 
@@ -49,7 +51,7 @@ public class AnonymizerApp {
         new ZooKeeperWatcher(zooKeeper, configurator);
 
         ArrayList<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
-        StringBuilder serversLocationInfo = new StringBuilder("Server URLS:\n");
+        StringBuilder serversLocationInfo = new StringBuilder(SERVERS_URL_INFO);
 
         for (int i = 1; i < args.length; i++) {
             try {
@@ -65,7 +67,7 @@ public class AnonymizerApp {
         }
 
         if (bindings.size() == 0) {
-            System.err.println("No servers are running");
+            System.err.println(NO_SERVERS);
         }
 
         System.out.println(serversLocationInfo);
