@@ -14,9 +14,13 @@ public class ZooKeeperWatcher implements Watcher {
 
     private static final String SERVERS_ROOT = "/servers";
 
-    public ZooKeeperWatcher(ZooKeeper zooKeeper, ActorRef configurator) {
+    public ZooKeeperWatcher(ZooKeeper zooKeeper, ActorRef configurator)
+            throws InterruptedException, KeeperException {
         this.configurator = configurator;
         this.zooKeeper = zooKeeper;
+
+        String serversData = new String(zooKeeper.getData(SERVERS_ROOT, true, null));
+        System.out.println("Servers data: " + serversData);
     }
 
     public sendServers() {
